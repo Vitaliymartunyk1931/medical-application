@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Monitoring System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div id="sidebar" class="sidebar">
+        {% include 'sidebar.html' %}
+    </div>
+    <div id="main-content" class="container">
+        <h2>Patients</h2>
+        <ul class="list-group">
+        {% for patient in patients %}
+            <li class="list-group-item">{{ patient.name }} - {{ patient.age }} years old - Condition: {{ patient.condition }} <a href="{{ url_for('edit_patient', index=loop.index0) }}">Edit</a></li>
+        {% endfor %}
+        </ul>
+        <a href="{{ url_for('add_patient') }}" class="btn btn-primary mt-3">Add Patient</a>
+    </div>
+</body>
+</html>
