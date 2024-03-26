@@ -6,20 +6,59 @@
     <title>Patient Monitoring System</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
     <div id="sidebar" class="sidebar">
-        {% include 'sidebar.html' %}
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="{{ url_for('index') }}">Main Page</a>
+        <a href="{{ url_for('add_patient') }}">Add Patient</a>
+        <a href="{{ url_for('chat') }}">Chat</a>
+        <a href="{{ url_for('diseases') }}">Diseases</a>
+        <a href="{{ url_for('diagnostics') }}">Diagnostics</a>
+        <a href="{{ url_for('login') }}">Login</a>
     </div>
-    <div id="main-content" class="container">
-        <h2>Patients</h2>
-        <ul class="list-group">
-        {% for patient in patients %}
-            <li class="list-group-item">{{ patient.name }} - {{ patient.age }} years old - Condition: {{ patient.condition }} <a href="{{ url_for('edit_patient', index=loop.index0) }}">Edit</a></li>
-        {% endfor %}
-        </ul>
-        <a href="{{ url_for('add_patient') }}" class="btn btn-primary mt-3">Add Patient</a>
+
+    <div id="main" class="main">
+        <button class="openbtn" onclick="openNav()">&#9776;</button>
+        
+        <div class="container">
+            <h1 class="text-center site-title">Patient Monitoring System</h1>
+            
+            <!-- Information Section -->
+            <section id="info-section">
+                <h2>About the Site</h2>
+                <p>This website is a part of the Patient Monitoring System project, aimed at providing efficient healthcare solutions.</p>
+            </section>
+            
+            <!-- Patient List Section -->
+            <section id="patient-list-section">
+                <h2>Add Patient</h2>
+                <ul class="list-group">
+                {% for patient in patients %}
+                    <li class="list-group-item">{{ patient.name }} - {{ patient.age }} years old - Condition: {{ patient.condition }} <a href="{{ url_for('edit_patient', index=loop.index0) }}">Edit</a> | <a href="{{ url_for('delete_patient', index=loop.index0) }}">Delete</a></li>
+                {% endfor %}
+                </ul>
+                <a href="{{ url_for('add_patient') }}" class="btn btn-primary mt-3">Add Patient</a>
+            </section>
+        </div>
     </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-center">All rights reserved. &copy; 2024 Vitaliy Martunyk</p>
+        </div>
+    </footer>
+
+    <script>
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft= "0";
+        }
+    </script>
 </body>
 </html>

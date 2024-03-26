@@ -1,0 +1,68 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Забезпечуємо врахування полів і рамок при визначенні ширини та висоти */
+}
+
+body, html {
+    background: linear-gradient(#11101d, #0d1d43); /* Градієнтний фон */
+    color: white; /* Колір тексту на білий */
+    font-family: Arial, sans-serif; /* Шрифт */
+    height: 100%; /* Зробимо фоновий градієнт на всю висоту екрану */
+}
+
+.main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    border-radius: 5px;
+    z-index: 999; /* Забезпечимо вищий z-index, щоб кнопка була видимою навіть під сайдбаром */
+}
+
+.container {
+    margin-top: 50px;
+    text-align: center;
+}
+
+/* Additional custom styles */
+.diseases-select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 300px;
+    background-color: #333; /* Фоновий колір для випадаючого списку */
+    color: white; /* Колір тексту для випадаючого списку */
+}
+
+.accept-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.accept-btn:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+    .openbtn {
+        top: 5px;
+        left: 5px;
+    }
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About us</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    {% include 'sidebar.html' %}
+    
+    <div id="main" class="main">
+        <button class="openbtn" onclick="openNav()">&#9776;</button>
+        
+        <div class="container">
+            <h1 class="text-center">About us</h1>
+            <!-- Your about us content here -->
+        </div>
+    </div>
+
+    <script>
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft= "0";
+        }
+    </script>
+</body>
+</html>

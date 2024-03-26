@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Забезпечуємо врахування полів і рамок при визначенні ширини та висоти */
+}
+
+body, html {
+    background: linear-gradient(#11101d, #0d1d43); /* Градієнтний фон */
+    color: white; /* Колір тексту на білий */
+    font-family: Arial, sans-serif; /* Шрифт */
+    height: 100%; /* Зробимо фоновий градієнт на всю висоту екрану */
+}
+
+.container {
+    margin-top: 50px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #fff; /* Додавання фону контейнера */
+}
+
+.profile-image {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-info {
+    text-align: center;
+}
+
+.profile-info h4 {
+    margin-bottom: 10px;
+}
+
+.profile-info p {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.labels {
+    font-size: 14px;
+    color: #555;
+}
+
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 8px;
+    font-size: 14px; /* зменшуємо розмір шрифту для форми */
+}
+
+.btn-primary {
+    background-color: #682773;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #5a1f64;
+}
+
+#profile-image-input {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin-top: 20px;
+        padding: 10px;
+    }
+
+    .profile-image {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .labels {
+        font-size: 12px;
+    }
+
+    .form-control {
+        padding: 6px;
+        font-size: 12px; /* зменшуємо розмір шрифту для мобільних пристроїв */
+    }
+
+    .btn-primary {
+        padding: 8px 16px;
+    }
+}

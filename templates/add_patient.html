@@ -1,4 +1,3 @@
-{% include 'sidebar.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,26 +5,137 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Patient</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='add_patient.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1 class="text-center">Add Patient</h1>
-        <form action="{{ url_for('add_patient') }}" method="post">
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" class="form-control">
+    {% include 'sidebar.html' %}
+    
+    <div id="main" class="main">
+        <button class="openbtn" onclick="openNav()">&#9776;</button>
+        
+        <div class="container rounded bg-white mt-5 mb-5">
+            <div class="row">
+                <div class="col-md-3 border-right">
+                    <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                        <div class="profile-image-container">
+                            <img class="rounded-circle mt-5 profile-image" id="profile-image" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                            <input type="file" id="profile-image-input" style="display: none;" accept="image/*" onchange="previewImage(event)">
+                            <label for="profile-image-input" class="btn btn-primary">Choose Photo</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-9">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right">Patient profile</h4>
+                        </div>
+                        
+                        <div class="row mt-2">
+                            <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value=""></div>
+                            <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" value="" placeholder="surname"></div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
+                            <div class="col-md-12"><label class="labels">Address</label><input type="text" class="form-control" placeholder="enter address line 1" value=""></div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value=""></div>
+                            <div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control" value="" placeholder="state"></div>
+                        </div>
+                        <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="age">Age:</label>
-                <input type="text" id="age" name="age" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="condition">Condition:</label>
-                <input type="text" id="condition" name="condition" class="form-control">
-            </div>
-            <input type="submit" value="Submit" class="btn btn-primary">
-        </form>
+        </div>
     </div>
+
+    <script>
+
+        
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft= "0";
+        }
+
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementsByClassName('profile-image')[0];
+                output.style.backgroundImage = 'url(' + reader.result + ')';
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        function previewImage(event) {
+            var image = document.getElementById('profile-image');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        }
+
+        function saveProfile() {
+            var name = document.getElementById('input-name').value;
+            var surname = document.getElementById('input-surname').value;
+            var mobileNumber = document.getElementById('input-mobile').value;
+            var address = document.getElementById('input-address').value;
+            var country = document.getElementById('input-country').value;
+            var state = document.getElementById('input-state').value;
+    
+            // Збереження даних у localStorage
+            localStorage.setItem('name', name);
+            localStorage.setItem('surname', surname);
+            localStorage.setItem('mobileNumber', mobileNumber);
+            localStorage.setItem('address', address);
+            localStorage.setItem('country', country);
+            localStorage.setItem('state', state);
+            
+            // Оновлення відображення імені
+            var profileName = document.getElementById('profile-name');
+            profileName.textContent = name;
+        }
+    
+        // Функція для завантаження збережених даних при завантаженні сторінки
+        window.onload = function() {
+            var name = localStorage.getItem('name');
+            var surname = localStorage.getItem('surname');
+            var mobileNumber = localStorage.getItem('mobileNumber');
+            var address = localStorage.getItem('address');
+            var country = localStorage.getItem('country');
+            var state = localStorage.getItem('state');
+    
+            // Встановлення збережених даних у відповідні поля
+            document.getElementById('input-name').value = name;
+            document.getElementById('input-surname').value = surname;
+            document.getElementById('input-mobile').value = mobileNumber;
+            document.getElementById('input-address').value = address;
+            document.getElementById('input-country').value = country;
+            document.getElementById('input-state').value = state;
+    
+            // Оновлення відображення імені
+            var profileName = document.getElementById('profile-name');
+            profileName.textContent = name;
+        }
+    
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+    
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft= "0";
+        }
+
+        function accept() {
+            // Handle accept action here
+            alert("Accepted!");
+        }
+        
+    </script>
 </body>
 </html>

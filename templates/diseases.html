@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diseases</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='diseases.css') }}"> <!-- Посилання на новий CSS файл -->
+</head>
+<body>
+    {% include 'sidebar.html' %}
+    
+    <div id="main" class="main">
+        <button class="openbtn" onclick="openNav()">&#9776;</button>
+        
+        <div class="container">
+            <h1 class="text-center">Diseases</h1>
+            <div id="diseasesContainer">
+                <select class="diseases-select">
+                    <option value="cold">Cold</option>
+                    <option value="flu">Flu</option>
+                    <option value="fever">Fever</option>
+                    <option value="headache">Headache</option>
+                    <option value="stomach-ache">Stomach ache</option>
+                    <option value="allergies">Allergies</option>
+                    <option value="asthma">Asthma</option>
+                    <option value="bronchitis">Bronchitis</option>
+                    <option value="pneumonia">Pneumonia</option>
+                    <option value="diabetes">Diabetes</option>
+                    <option value="hypertension">Hypertension</option>
+                    <option value="hypotension">Hypotension</option>
+                    <option value="arthritis">Arthritis</option>
+                    <option value="osteoporosis">Osteoporosis</option>
+                    <option value="cancer">Cancer</option>
+                    <option value="hiv">HIV/AIDS</option>
+                    <option value="hepatitis">Hepatitis</option>
+                    <!-- Add more diseases as needed -->
+                </select>
+            </div>
+            
+            <button class="accept-btn" onclick="addNewSelect()">Accept</button>
+        </div>
+    </div>
+
+    <script>
+        let selectCount = 1;
+
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft= "0";
+        }
+
+        function addNewSelect() {
+            const container = document.getElementById('diseasesContainer');
+            const newSelect = document.createElement('select');
+            newSelect.classList.add('diseases-select');
+            newSelect.innerHTML = `
+                <option value="cold">Cold</option>
+                <option value="flu">Flu</option>
+                <option value="fever">Fever</option>
+                <option value="headache">Headache</option>
+                <option value="stomach-ache">Stomach ache</option>
+                <option value="allergies">Allergies</option>
+                <option value="asthma">Asthma</option>
+                <option value="bronchitis">Bronchitis</option>
+                <option value="pneumonia">Pneumonia</option>
+                <option value="diabetes">Diabetes</option>
+                <option value="hypertension">Hypertension</option>
+                <option value="hypotension">Hypotension</option>
+                <option value="arthritis">Arthritis</option>
+                <option value="osteoporosis">Osteoporosis</option>
+                <option value="cancer">Cancer</option>
+                <option value="hiv">HIV/AIDS</option>
+                <option value="hepatitis">Hepatitis</option>
+                <!-- Add more diseases as needed -->
+            `;
+            container.appendChild(newSelect);
+            selectCount++;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='diagnostics.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    {% include 'sidebar.html' %}
+    
+    <div id="main" class="main">
+        <button class="openbtn" onclick="openNav()">&#9776;</button>
+        
+        <div class="container">
+            <h1 class="text-center">Diagnostics</h1>
+            <form id="monitoringForm">
+                <div class="form-group">
+                    <label for="temperature">Temperature (°C)</label>
+                    <input type="number" class="form-control" id="temperature" name="temperature" required>
+                </div>
+                <div class="form-group">
+                    <label for="bloodPressure">Blood Pressure (mmHg)</label>
+                    <input type="text" class="form-control" id="bloodPressure" name="bloodPressure" required>
+                </div>
+                <div class="form-group">
+                    <label for="pulse">Pulse (bpm)</label>
+                    <input type="number" class="form-control" id="pulse" name="pulse" required>
+                </div>
+                <!-- Add more vital signs if needed -->
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            
+            <!-- Place canvas elements for charts -->
+            <canvas id="temperatureChart" width="400" height="200"></canvas>
+            <canvas id="bloodPressureChart" width="400" height="200"></canvas>
+            <canvas id="pulseChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+
+    <script>
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft= "0";
+        }
+
+        // Function to update chart using Chart.js
+        function updateChart(chart, label, data) {
+            chart.data.labels.push(label); // Add label on X axis
+            chart.data.datasets.forEach((dataset) => {
+                dataset.data.push(data); // Add data on Y axis
+            });
+            chart.update(); // Update chart
+        }
+
+        // Create chart for temperature
+        var temperatureCtx = document.getElementById('temperatureChart').getContext('2d');
+        var temperatureChart = new Chart(temperatureCtx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Temperature (°C)',
+                    data: [],
+                    borderColor: 'rgb(255, 99, 132)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    y: {
+                        beginAtZero: false
+                    }
+                }
+            }
+        });
+
+        // Create chart for blood pressure
+        var bloodPressureCtx = document.getElementById('bloodPressureChart').getContext('2d');
+        var bloodPressureChart = new Chart(bloodPressureCtx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Blood Pressure (mmHg)',
+                    data: [],
+                    borderColor: 'rgb(54, 162, 235)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    y: {
+                        beginAtZero: false
+                    }
+                }
+            }
+        });
+
+        // Create chart for pulse
+        var pulseCtx = document.getElementById('pulseChart').getContext('2d');
+        var pulseChart = new Chart(pulseCtx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Pulse (bpm)',
+                    data: [],
+                    borderColor: 'rgb(75, 192, 192)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    y: {
+                        beginAtZero: false
+                    }
+                }
+            }
+        });
+
+        // Handling form submission
+        document.getElementById("monitoringForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form behavior
+            // Get vital signs values
+            var temperature = parseFloat(document.getElementById("temperature").value);
+            var bloodPressure = parseFloat(document.getElementById("bloodPressure").value);
+            var pulse = parseFloat(document.getElementById("pulse").value);
+            
+            // Update charts
+            updateChart(temperatureChart, new Date().toLocaleTimeString(), temperature);
+            updateChart(bloodPressureChart, new Date().toLocaleTimeString(), bloodPressure);
+            updateChart(pulseChart, new Date().toLocaleTimeString(), pulse);
+        });
+    </script>
+</body>
+</html>

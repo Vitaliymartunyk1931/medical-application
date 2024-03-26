@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
-# Тимчасова база даних для збереження інформації про пацієнтів
 patients = []
 
 @app.route('/')
@@ -21,33 +20,38 @@ def add_patient():
 
 @app.route('/edit_patient/<int:index>', methods=['GET', 'POST'])
 def edit_patient(index):
-    if index < len(patients):
-        patient = patients[index]
-        if request.method == 'POST':
-            patient['name'] = request.form['name']
-            patient['age'] = request.form['age']
-            patient['condition'] = request.form['condition']
-            return redirect(url_for('index'))
-        return render_template('edit_patient.html', patient=patient, index=index)
-    else:
-        return "Patient with index {} not found".format(index), 404
+    patient = patients[index]
+    if request.method == 'POST':
+        patient['name'] = request.form['name']
+        patient['age'] = request.form['age']
+        patient['condition'] = request.form['condition']
+        return redirect(url_for('index'))
+    return render_template('edit_patient.html', patient=patient, index=index)
 
-
-@app.route('/login')
-def login():
-    return "Login Page"
-
-@app.route('/diseases')
-def diseases():
-    return "Diseases Page"
+@app.route('/delete_patient/<int:index>')
+def delete_patient(index):
+    del patients[index]
+    return redirect(url_for('index'))
 
 @app.route('/chat')
 def chat():
-    return "Chat Page"
+    return render_template('chat.html')
 
-@app.route('/about')
-def about():
-    return "About Page"
+@app.route('/diseases')
+def diseases():
+    return render_template('diseases.html')
+
+@app.route('/diagnostics')
+def diagnostics():
+    return render_template('diagnostics.html')
+
+@app.route('/about_us')
+def about_us():
+    return render_template('about_us.html')
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
